@@ -8,7 +8,6 @@ export default {
   state: () => ({
     loginUser: {
       userName: "dango",
-      role: "user",
     },
   }),
   actions: {

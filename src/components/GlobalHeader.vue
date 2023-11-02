@@ -42,11 +42,11 @@ import { useStore } from "vuex";
 import checkAccess from "@/access/checkAccess";
 
 const router = useRouter();
-const selectedKeys = ref(["/"]);
 const route = useRoute();
 const store = useStore();
 const loginUser = store.state.user.loginUser;
 
+const selectedKeys = ref(["/"]);
 router.afterEach((to, from, failure) => {
   selectedKeys.value = [to.path];
 });
