@@ -42,9 +42,7 @@ import { useStore } from "vuex";
 import checkAccess from "@/access/checkAccess";
 
 const router = useRouter();
-const route = useRoute();
 const store = useStore();
-const loginUser = store.state.user.loginUser;
 
 const selectedKeys = ref(["/"]);
 router.afterEach((to, from, failure) => {
@@ -56,18 +54,20 @@ const doMenuClick = (key: string) => {
 };
 
 const visibleRoutes = computed(() => {
-  return routes.filter((item, index) => {
-    if (item.meta?.hideInMenu) {
-      return false;
-    }
-    // 根据权限过滤菜单
-    if (
-      !checkAccess(store.state.user.loginUser, item?.meta?.access as string)
-    ) {
-      return false;
-    }
-    return true;
-  });
+  return routes
+    .find((route) => route.path === "/")
+    ?.children?.filter((item, index) => {
+      if (item.meta?.hideInMenu) {
+        return false;
+      }
+      // 根据权限过滤菜单
+      if (
+        !checkAccess(store.state.user.loginUser, item?.meta?.access as string)
+      ) {
+        return false;
+      }
+      return true;
+    });
 });
 </script>
 
